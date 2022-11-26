@@ -19,6 +19,10 @@ export const getProducto = async (req, res) => {
             mensaje: 'El producto no existe...'
         })
     }
+
+    //Agrega el id en el carrito
+    await conn.query('INSERT INTO carrito (id_producto) VALUES (?)', [id_producto]);
+
     //Si el producto existe en BD lo entrega. 
     res.json( producto );
 
@@ -31,6 +35,12 @@ export const agregaProducto = async (req, res) => {
 
     const [producto] = await conn.query('INSERT INTO productos (nombre, precio, id_proveedor, id_categoria) VALUES (?, ?, ?, ?);',
     [ nombre, precio, proveedor, categoria ]);
+    
+    if( producto.affectedRows <= 0) {
+        return res.status(404).json({
+            mensaje: "No se pudo ingresar el producto."
+        })
+    }
     
     res.send({
         id: producto.insertId,

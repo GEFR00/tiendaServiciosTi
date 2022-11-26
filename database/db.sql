@@ -10,7 +10,13 @@ CREATE TABLE Categorias(id_categoria INT PRIMARY KEY, categoria VARCHAR(50));
 -- CREATE TABLE Clientes(id_cliente INT PRIMARY KEY, nombre VARCHAR(50), direccion VARCHAR(50), comuna VARCHAR(50));
 -- CREATE TABLE Facturas(id_factura INT PRIMARY KEY, fecha VARCHAR(10), id_cliente INT, FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente));
 CREATE TABLE Productos(id_producto INT PRIMARY KEY  AUTO_INCREMENT, nombre VARCHAR(50), precio INT, id_proveedor INT NULL, FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor), id_categoria INT NULL, FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria));
--- CREATE TABLE VENTAS(id_venta INT PRIMARY KEY, cantidad INT, id_factura INT, FOREIGN KEY (id_factura) REFERENCES Facturas(id_factura), id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto));
+-- CREATE TABLE VENTAS(id_venta INT PRIMARY KEY, cantidad INT, id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto));
+CREATE TABLE Carrito(id_carrito INT PRIMARY KEY AUTO_INCREMENT, id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto));
+
+-- Llenado tabla Carrito
+INSERT INTO Carrito VALUES(1, 1);
+
+
 
 -- Llenado tabla proveedores
 INSERT INTO Proveedores VALUES(1, 'Proveedor01', 'Av. Deportiva 444', '65478456');
