@@ -5,8 +5,8 @@ CREATE DATABASE tiendaserviciosti2022;
 USE tiendaserviciosti2022;
 
 -- Creando tablas
-CREATE TABLE Proveedores(id_proveedor INT PRIMARY KEY, nombre VARCHAR(50), direccion VARCHAR(50), telefono VARCHAR(50));
-CREATE TABLE Categorias(id_categoria INT PRIMARY KEY, categoria VARCHAR(50));
+CREATE TABLE Proveedores(id_proveedor INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(50), direccion VARCHAR(50), telefono VARCHAR(50));
+CREATE TABLE Categorias(id_categoria INT PRIMARY KEY AUTO_INCREMENT, categoria VARCHAR(50));
 -- CREATE TABLE Clientes(id_cliente INT PRIMARY KEY, nombre VARCHAR(50), direccion VARCHAR(50), comuna VARCHAR(50));
 -- CREATE TABLE Facturas(id_factura INT PRIMARY KEY, fecha VARCHAR(10), id_cliente INT, FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente));
 CREATE TABLE Productos(id_producto INT PRIMARY KEY  AUTO_INCREMENT, nombre VARCHAR(50), precio INT, id_proveedor INT NULL, FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor), id_categoria INT NULL, FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria));
