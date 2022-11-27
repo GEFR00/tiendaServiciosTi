@@ -55,11 +55,11 @@ export const agregaProducto = async (req, res) => {
 //Actualiza el producto dado por id en la BD
 export const actualizaProducto = async (req, res) => {
     const id_producto  = req.params.id;
-    const { nombre, precio, id_proveedor, id_categoria } = req.body;
+    const { nombre, precio, proveedor, categoria } = req.body;
 
     //Query que actualiza el producto por id
     const [resultado] = await conn.query('UPDATE Productos SET nombre = ?, precio = ?, id_proveedor = ?, id_categoria = ?  WHERE id_producto = ?',
-    [ nombre, precio, id_proveedor, id_categoria, id_producto ]);
+    [ nombre, precio, proveedor, categoria, id_producto ]);
 
     //Si no fue agregado entrega mensaje 404
     if(resultado.length <= 0 ) {
@@ -73,8 +73,8 @@ export const actualizaProducto = async (req, res) => {
         id: id_producto,
         nombre,
         precio,
-        id_proveedor, 
-        id_categoria
+        proveedor, 
+        categoria
     });
 }
 
