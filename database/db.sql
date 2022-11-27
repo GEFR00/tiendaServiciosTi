@@ -11,11 +11,23 @@ CREATE TABLE Categorias(id_categoria INT PRIMARY KEY AUTO_INCREMENT, categoria V
 -- CREATE TABLE Facturas(id_factura INT PRIMARY KEY, fecha VARCHAR(10), id_cliente INT, FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente));
 CREATE TABLE Productos(id_producto INT PRIMARY KEY  AUTO_INCREMENT, nombre VARCHAR(50), precio INT, id_proveedor INT NULL, FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor), id_categoria INT NULL, FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria));
 -- CREATE TABLE VENTAS(id_venta INT PRIMARY KEY, cantidad INT, id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto));
-CREATE TABLE Carrito(id_carrito INT PRIMARY KEY AUTO_INCREMENT, id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto));
+CREATE TABLE Carrito(id_carrito INT PRIMARY KEY AUTO_INCREMENT,  id_vendedor INT, FOREIGN KEY (id_vendedor) REFERENCES Vendedores(id_vendedor),id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto));
+CREATE TABLE Vendedores(id_vendedor INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(50), apellido VARCHAR(50), comuna_local VARCHAR(50));
 
 -- Llenado tabla Carrito
-INSERT INTO Carrito VALUES(1, 1);
+INSERT INTO Carrito VALUES(1, 1, 1);
+INSERT INTO Carrito VALUES(2, 1, 2);
+INSERT INTO Carrito VALUES(3, 1, 13);
+INSERT INTO Carrito VALUES(4, 3, 4);
+INSERT INTO Carrito VALUES(5, 3, 5);
+INSERT INTO Carrito VALUES(6, 2, 3);
+INSERT INTO Carrito VALUES(7, 2, 8);
 
+-- Llenado de Vendedores
+INSERT INTO Vendedores VALUES(1, 'John', 'Doe', 'La Florida');
+INSERT INTO Vendedores VALUES(2, 'Alejandra', 'Arellano', 'Providencia');
+INSERT INTO Vendedores VALUES(3, 'Jose', 'Lopez', 'Lo Barnechea');
+INSERT INTO Vendedores VALUES(4, 'Roberto', 'Neira', 'Quilicura');
 
 
 -- Llenado tabla proveedores

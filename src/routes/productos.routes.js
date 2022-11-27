@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getProductos, getProducto, deleteProducto, agregaProducto } from '../controllers/productos.controller.js';
+import { getProductos, getProducto, deleteProducto, agregaProducto, actualizaProducto } from '../controllers/productos.controller.js';
 
 const ruta = Router();
 
@@ -13,6 +13,9 @@ ruta.get('/productos/:id', getProducto);
 
 //Ruta que agrega producto
 ruta.post('/productos', agregaProducto);
+
+//Ruta que edita los productos por id 
+ruta.put('/productos/:id', actualizaProducto);
 
 //Ruta que elimina un producto
 ruta.delete('/productos/:id', deleteProducto);

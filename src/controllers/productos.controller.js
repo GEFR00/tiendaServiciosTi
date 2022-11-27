@@ -51,6 +51,33 @@ export const agregaProducto = async (req, res) => {
     });
 }
 
+// ---   PUT   ---
+//Actualiza el producto dado por id en la BD
+export const actualizaProducto = async (req, res) => {
+    const id_producto  = req.params.id;
+    const { nombre, precio, id_proveedor, id_categoria } = req.body;
+
+    //Query que actualiza el producto por id
+    const [resultado] = await conn.query('UPDATE Productos SET nombre = ?, precio = ?, id_proveedor = ?, id_categoria = ?  WHERE id_producto = ?',
+    [ nombre, precio, id_proveedor, id_categoria, id_producto ]);
+
+    //Si no fue agregado entrega mensaje 404
+    if(resultado.length <= 0 ) {
+        return res.status(404).json({
+            mensaje: 'Categoria indicada no existe...'
+        })
+    }
+
+    //Si se agregó, entrega los datos agregados en JSON. 
+    res.send({
+        id: id_producto,
+        nombre,
+        precio,
+        id_proveedor, 
+        id_categoria
+    });
+}
+
 // ---   DELETE   ---
 //Elimina un producto de la BD
 export const deleteProducto = async (req, res) => {
