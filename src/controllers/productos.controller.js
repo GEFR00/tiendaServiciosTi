@@ -21,7 +21,7 @@ export const getProducto = async (req, res) => {
     }
 
     //Agrega el id en el carrito
-    await conn.query('INSERT INTO carrito (id_producto) VALUES (?)', [id_producto]);
+    // await conn.query('INSERT INTO carrito (id_producto) VALUES (?)', [id_producto]);
 
     //Si el producto existe en BD lo entrega. 
     res.json( producto );
