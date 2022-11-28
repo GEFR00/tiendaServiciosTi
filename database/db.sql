@@ -11,6 +11,8 @@ CREATE TABLE Productos(id_producto INT PRIMARY KEY  AUTO_INCREMENT, nombre VARCH
 CREATE TABLE Carrito(id_carrito INT PRIMARY KEY AUTO_INCREMENT,  id_vendedor INT, FOREIGN KEY (id_vendedor) REFERENCES Vendedores(id_vendedor), id_cliente INT, FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente), id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto));
 CREATE TABLE Vendedores(id_vendedor INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(50), apellido VARCHAR(50), comuna_local VARCHAR(50));
 CREATE TABLE Clientes(id_cliente INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(50), apellido VARCHAR(50));
+CREATE TABLE Ventas(id_vendedor INT, FOREIGN KEY (id_vendedor) REFERENCES Vendedores(id_vendedor), cantidadVentas INT);
+CREATE TABLE Inventario(id_inventario INT, id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto), cantidad INT);
 
 -- Llenado tabla Carrito
 INSERT INTO Carrito VALUES(1, 1, 1, 1);
@@ -20,6 +22,23 @@ INSERT INTO Carrito VALUES(4, 3, 5, 4);
 INSERT INTO Carrito VALUES(5, 3, 5, 5);
 INSERT INTO Carrito VALUES(6, 2, 2, 3);
 INSERT INTO Carrito VALUES(7, 2, 2, 8);
+INSERT INTO Carrito VALUES(8, 1, 2, 1);
+
+
+-- Llenado de inventario
+INSERT INTO Inventario VALUES(1, 1, 10);
+INSERT INTO Inventario VALUES(2, 2, 10);
+INSERT INTO Inventario VALUES(3, 3, 10);
+INSERT INTO Inventario VALUES(4, 4, 10);
+INSERT INTO Inventario VALUES(5, 5, 10);
+INSERT INTO Inventario VALUES(6, 6, 10);
+INSERT INTO Inventario VALUES(7, 7, 10);
+INSERT INTO Inventario VALUES(8, 8, 10);
+INSERT INTO Inventario VALUES(9, 9, 10);
+INSERT INTO Inventario VALUES(10, 10, 10);
+INSERT INTO Inventario VALUES(11, 11, 10);
+INSERT INTO Inventario VALUES(12, 12, 10);
+INSERT INTO Inventario VALUES(13, 13, 10);
 
 -- Llenado de Vendedores
 INSERT INTO Vendedores VALUES(1, 'John', 'Doe', 'La Florida');
@@ -27,6 +46,10 @@ INSERT INTO Vendedores VALUES(2, 'Alejandra', 'Arellano', 'Providencia');
 INSERT INTO Vendedores VALUES(3, 'Jose', 'Lopez', 'Lo Barnechea');
 INSERT INTO Vendedores VALUES(4, 'Roberto', 'Neira', 'Quilicura');
 
+-- Llenado de Ventas
+INSERT INTO Ventas VALUES(1, 3);
+INSERT INTO Ventas VALUES(2, 3);
+INSERT INTO Ventas VALUES(3, 2);
 
 -- Llenado tabla proveedores
 INSERT INTO Proveedores VALUES(1, 'Proveedor01', 'Av. Deportiva 444', '65478456');
@@ -64,6 +87,22 @@ INSERT INTO Productos VALUE(10, 'Zapatilla futbol', 180000, 1, 1);
 INSERT INTO Productos VALUE(12, 'Raqueta tennis', 80000, 8, 3);
 INSERT INTO Productos VALUE(13, 'Traje deportivo/tennis', 35000, 8, 2);
 
+-- Transacciones
+START TRANSACTION;
+INSERT INTO Carrito (id_carrito, id_vendedor, id_cliente, id_producto)
+VALUES (8, 1, 4, 10);
+INSERT INTO  DetalleVentas (id_vendedor, id_producto, cantidad)
+VALUES (1, 10, 1);
+rollback;
+commit;
+
+DELIMITER $$
+CREATE TRIGGER actualiza_stock
+AFTER INSERT ON nombre_tabla
+FOR EACH ROW
+BEGIN
+//Instrucciones SQL
+END;$$
 
 -- Mostrando tablas 
 SHOW TABLES; 

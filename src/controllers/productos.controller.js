@@ -55,6 +55,37 @@ export const agregaProducto = async (req, res) => {
     });
 }
 
+export const agregaProductoInventario = async (req, res) => {
+    const { nombre, precio, proveedor, categoria } = req.body;
+
+    //Query que inserta en la BD
+    const [producto] = await conn.query('INSERT INTO productos (nombre, precio, id_proveedor, id_categoria) VALUES (?, ?, ?, ?);',
+    [ nombre, precio, proveedor, categoria ]);
+    
+    //Si no fue agregado entrega mensaje 404
+    if( producto.affectedRows <= 0) {
+        return res.status(404).json({
+            mensaje: "No se pudo ingresar el producto."
+        })
+    }
+
+    const [id_producto] = await conn.query('SELECT id_producto FROM Productos');
+    const id_prod = id_producto[0].id_producto;
+    const cantidad = 10;
+    
+    const [prodInventario] = await conn.query('INSERT INTO Inventario (id_producto, cantidad) VALUES (?, ?);',
+    [id_prod, cantidad])
+
+    //Si se agregó, entrega los datos agregados en JSON. 
+    res.send({
+        id: producto.insertId,
+        nombre,
+        precio,
+        proveedor,
+        categoria
+    });
+}
+
 // ---   PUT   ---
 //Actualiza el producto dado por id en la BD
 export const actualizaProducto = async (req, res) => {
@@ -98,4 +129,5 @@ export const deleteProducto = async (req, res) => {
     //Si el producto existe, se elimina y entrega estado de existe sin devolver nada. 
     res.sendStatus(204); 
 }
+
 
