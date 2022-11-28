@@ -7,6 +7,7 @@ import proveedoresRutas from './routes/proveedores.routes.js';
 import categoriasRutas from './routes/categorias.routes.js';
 import vendedoresRutas from './routes/vendedores.routes.js'
 import detalleCarrito from './routes/detalleCarrito.routes.js';
+import clientesRutas from './routes/clientes.routes.js';
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use('/api' , proveedoresRutas );
 app.use('/api' , proveedoresRutas );
 app.use('/api' , categoriasRutas );
 app.use('/api' , vendedoresRutas );
+app.use('/api' , clientesRutas );
 
 app.listen( 3000 );
 console.log('Escuchando en puerto 3000...');

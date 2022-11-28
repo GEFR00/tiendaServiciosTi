@@ -3,7 +3,30 @@ import { conn } from '../db.js'
 // ---   GET   ---
 //Lista el carrito completo pero solo por id
 export const getCarrito = async (req, res) => {
+
+    //Query que lista todos del carrito
     const [carrito] = await conn.query('SELECT * FROM Carrito;');
+
+    //Entrega todos del carrito en JSON
+    res.json( carrito );
+}
+
+//Lista el producto y precio del carro por id
+export const getProdYPrecioCarrito = async (req, res) => {
+    const id_carrito = req.params.id;
+
+    //Query que lista producto y nombre del carrito por id
+    const [carrito] = await conn.query('SELECT nombre, precio FROM Carrito LEFT JOIN Productos ON productos.id_producto = carrito.id_producto WHERE id_carrito = ?',
+    [id_carrito]);
+
+    //Si carrito es null entrega mensaje 404
+    if(carrito.length <= 0 ) {
+        return res.status(404).json({
+            mensaje: 'El carrito no existe...'
+        })
+    }
+
+    //Entrega producto y nombre del carrito en JSON
     res.json( carrito );
 }
 
