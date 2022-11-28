@@ -11,6 +11,25 @@ export const getVendedores = async (req, res) => {
     res.json( vendedores );
 }
 
+//Lista info del vendedor solicitado x id
+export const getInfoVendedor = async (req, res) => {
+    const id_vendedor = req.params.id;
+
+    //Query que lista info del vendedor
+    const [vendedor] = await conn.query('SELECT * FROM Vendedores WHERE id_vendedor = ?;',
+    [id_vendedor]);
+
+    //Si vendedor es null entrega mensaje 404
+    if(vendedor.length <= 0 ) {
+        return res.status(404).json({
+            mensaje: 'El producto no existe...'
+        })
+    }
+
+    //Entrega al vendedor en JSON
+    res.json( vendedor );
+}
+
 // ---   POST   ---
 //Agrega vendedor en la BD
 export const agregaVendedor = async (req, res) => {

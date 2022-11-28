@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getCarrito, deleteItemCarrito, agregaEnElCarrito } from '../controllers/carrito.controller.js';
+import { getCarrito, deleteItemCarrito, agregaEnElCarrito, getInfoCarrito } from '../controllers/carrito.controller.js';
 
 const ruta = Router();
 
@@ -7,6 +7,9 @@ const ruta = Router();
 
 //Ruta que trae al carrito
 ruta.get('/carrito', getCarrito);
+
+//Ruta que trae info del carrito x id
+ruta.get('/carrito/:id', getInfoCarrito);
 
 //Ruta que agrega en el carrito
 ruta.post('/carrito', agregaEnElCarrito);

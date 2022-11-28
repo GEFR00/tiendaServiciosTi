@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getVendedores, agregaVendedor, actualizaVendedor, deleteVendedor } from '../controllers/vendedores.controller.js';
+import { getVendedores, agregaVendedor, actualizaVendedor, deleteVendedor, getInfoVendedor } from '../controllers/vendedores.controller.js';
 
 const ruta = Router();
 
@@ -7,6 +7,9 @@ const ruta = Router();
 
 //Ruta que trae todos los vendedores
 ruta.get('/vendedores', getVendedores);
+
+//Ruta que trae la info de los vendedores por id
+ruta.get('/vendedores/:id', getInfoVendedor);
 
 //Ruta que agrega vendedor en la bd
 ruta.post('/vendedores', agregaVendedor);

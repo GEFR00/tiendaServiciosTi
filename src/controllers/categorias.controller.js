@@ -11,6 +11,25 @@ export const getCategorias = async (req, res) => {
     res.json( categorias );
 }
 
+//Lista info de la categoria solicitado x id
+export const getInfoCategoria = async (req, res) => {
+    const id_categoria = req.params.id;
+
+    //Query que lista info de la categoria
+    const [categoria] = await conn.query('SELECT * FROM Categorias WHERE id_categoria = ?;',
+    [id_categoria]);
+
+    //Si categoria es null entrega mensaje 404
+    if(categoria.length <= 0 ) {
+        return res.status(404).json({
+            mensaje: 'El producto no existe...'
+        })
+    }
+
+    //Entrega la categoria en JSON
+    res.json( categoria );
+}
+
 // ---   POST   ---
 //Agrega categoria en la BD
 export const agregaCategoria = async (req, res) => {

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getCategorias, agregaCategoria, actualizaCategoria,deleteCategoria } from '../controllers/categorias.controller.js';
+import { getCategorias, agregaCategoria, actualizaCategoria, deleteCategoria, getInfoCategoria } from '../controllers/categorias.controller.js';
  
 const ruta = Router();
 
@@ -7,6 +7,9 @@ const ruta = Router();
 
 //Ruta que trae todas las categorias
 ruta.get('/categorias', getCategorias);
+
+//Ruta que trae info de la categoria x id
+ruta.get('/categorias/:id', getInfoCategoria);
 
 //Ruta que agrega categoria en la bd
 ruta.post('/categorias', agregaCategoria);

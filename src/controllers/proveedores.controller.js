@@ -11,6 +11,25 @@ export const getProveedores = async (req, res) => {
     res.json( proveedores );
 }
 
+//Entrega info del proveedor solicitado x id
+export const getInfoProveedor = async (req, res) => {
+    const id_proveedor = req.params.id;
+
+    //Query que lista info del proveedor
+    const [proveedor] = await conn.query('SELECT * FROM Proveedores WHERE id_proveedor = ?;',
+    [id_proveedor]);
+
+    //Si proveedor es null entrega mensaje 404
+    if(proveedor.length <= 0 ) {
+        return res.status(404).json({
+            mensaje: 'El producto no existe...'
+        })
+    }
+
+    //Entrega al proveedor en JSON
+    res.json( proveedor );
+}
+
 // ---   POST   ---
 //Agrega proveedor en la BD
 export const agregaProveedor = async (req, res) => {

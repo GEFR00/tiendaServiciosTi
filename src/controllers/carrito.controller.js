@@ -7,6 +7,25 @@ export const getCarrito = async (req, res) => {
     res.json( carrito );
 }
 
+//Lista info del carrito solicitado x id
+export const getInfoCarrito = async (req, res) => {
+    const id_carrito = req.params.id;
+
+    //Query que lista info del carrito
+    const [carrito] = await conn.query('SELECT * FROM Carrito WHERE id_carrito = ?;',
+    [id_carrito]);
+
+    //Si carrito es null entrega mensaje 404
+    if(carrito.length <= 0 ) {
+        return res.status(404).json({
+            mensaje: 'El producto no existe...'
+        })
+    }
+
+    //Entrega al carrito en JSON
+    res.json( carrito );
+}
+
 // ---   POST   ---
 //Agrega vendedor y producto en la BD
 export const agregaEnElCarrito = async (req, res) => {
