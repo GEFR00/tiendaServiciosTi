@@ -41,7 +41,7 @@ export const getInfoCarrito = async (req, res) => {
     //Si carrito es null entrega mensaje 404
     if(carrito.length <= 0 ) {
         return res.status(404).json({
-            mensaje: 'El producto no existe...'
+            mensaje: 'El carrito no existe...'
         })
     }
 

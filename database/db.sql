@@ -7,21 +7,19 @@ USE tiendaserviciosti2022;
 -- Creando tablas
 CREATE TABLE Proveedores(id_proveedor INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(50), direccion VARCHAR(50), telefono VARCHAR(50));
 CREATE TABLE Categorias(id_categoria INT PRIMARY KEY AUTO_INCREMENT, categoria VARCHAR(50));
--- CREATE TABLE Clientes(id_cliente INT PRIMARY KEY, nombre VARCHAR(50), direccion VARCHAR(50), comuna VARCHAR(50));
--- CREATE TABLE Facturas(id_factura INT PRIMARY KEY, fecha VARCHAR(10), id_cliente INT, FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente));
 CREATE TABLE Productos(id_producto INT PRIMARY KEY  AUTO_INCREMENT, nombre VARCHAR(50), precio INT, id_proveedor INT NULL, FOREIGN KEY (id_proveedor) REFERENCES Proveedores(id_proveedor), id_categoria INT NULL, FOREIGN KEY (id_categoria) REFERENCES Categorias(id_categoria));
--- CREATE TABLE VENTAS(id_venta INT PRIMARY KEY, cantidad INT, id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto));
-CREATE TABLE Carrito(id_carrito INT PRIMARY KEY AUTO_INCREMENT,  id_vendedor INT, FOREIGN KEY (id_vendedor) REFERENCES Vendedores(id_vendedor),id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto));
+CREATE TABLE Carrito(id_carrito INT PRIMARY KEY AUTO_INCREMENT,  id_vendedor INT, FOREIGN KEY (id_vendedor) REFERENCES Vendedores(id_vendedor), id_cliente INT, FOREIGN KEY (id_cliente) REFERENCES Clientes(id_cliente), id_producto INT, FOREIGN KEY (id_producto) REFERENCES Productos(id_producto));
 CREATE TABLE Vendedores(id_vendedor INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(50), apellido VARCHAR(50), comuna_local VARCHAR(50));
+CREATE TABLE Clientes(id_cliente INT PRIMARY KEY AUTO_INCREMENT, nombre VARCHAR(50), apellido VARCHAR(50));
 
 -- Llenado tabla Carrito
-INSERT INTO Carrito VALUES(1, 1, 1);
-INSERT INTO Carrito VALUES(2, 1, 2);
-INSERT INTO Carrito VALUES(3, 1, 13);
-INSERT INTO Carrito VALUES(4, 3, 4);
-INSERT INTO Carrito VALUES(5, 3, 5);
-INSERT INTO Carrito VALUES(6, 2, 3);
-INSERT INTO Carrito VALUES(7, 2, 8);
+INSERT INTO Carrito VALUES(1, 1, 1, 1);
+INSERT INTO Carrito VALUES(2, 1, 1, 2);
+INSERT INTO Carrito VALUES(3, 1, 3, 13);
+INSERT INTO Carrito VALUES(4, 3, 5, 4);
+INSERT INTO Carrito VALUES(5, 3, 5, 5);
+INSERT INTO Carrito VALUES(6, 2, 2, 3);
+INSERT INTO Carrito VALUES(7, 2, 2, 8);
 
 -- Llenado de Vendedores
 INSERT INTO Vendedores VALUES(1, 'John', 'Doe', 'La Florida');
@@ -46,20 +44,11 @@ INSERT INTO Categorias VALUES(2, 'Ropa');
 INSERT INTO Categorias VALUES(3, 'Accesorios');
 
 -- Llenado tabla Cliente
-INSERT INTO Clientes VALUES(1, 'Daniel', 'Psj. Real 5234', 'Providencia');
-INSERT INTO Clientes VALUES(2, 'Gabriel', 'Av. trueque 23', 'Recoleta');
-INSERT INTO Clientes VALUES(3, 'Felipe', 'Calle siempre 5223', 'Vitacura');
-INSERT INTO Clientes VALUES(4, 'Paola', 'Psj. Las piñas 132', 'Providencia');
-INSERT INTO Clientes VALUES(5, 'Javiera', 'Av. uno 6234', 'Quilicura');
-INSERT INTO Clientes VALUES(6, 'Nicolas', 'Av. dos 8975', 'Las Condes');
-
--- Llenado tabla facturas
-INSERT INTO Facturas VALUES(1, 2022-11-24, 5);
-INSERT INTO Facturas VALUES(2, 2022-11-25, 1);
-INSERT INTO Facturas VALUES(3, 2022-11-25, 6);
-INSERT INTO Facturas VALUES(4, 2022-11-27, 2);
-INSERT INTO Facturas VALUES(5, 2022-11-28, 4);
-INSERT INTO Facturas VALUES(6, 2022-11-28, 3);
+INSERT INTO Clientes VALUES(1, 'Daniel', 'Gonzalez');
+INSERT INTO Clientes VALUES(2, 'Gabriel', 'Riquelme');
+INSERT INTO Clientes VALUES(3, 'Felipe', 'Oyarzo');
+INSERT INTO Clientes VALUES(4, 'Paola', 'Soriano');
+INSERT INTO Clientes VALUES(5, 'Javiera', 'Gallardo');
 
 -- Llenado tabla Productos
 INSERT INTO Productos VALUE(1, 'Zapatilla para correr', 80000, 6, 1);
@@ -75,16 +64,6 @@ INSERT INTO Productos VALUE(10, 'Zapatilla futbol', 180000, 1, 1);
 INSERT INTO Productos VALUE(12, 'Raqueta tennis', 80000, 8, 3);
 INSERT INTO Productos VALUE(13, 'Traje deportivo/tennis', 35000, 8, 2);
 
--- Llenado tabla VENTAS
-INSERT INTO Ventas VALUE(1, 1, 1, 2);
-INSERT INTO Ventas VALUE(2, 1, 1, 4);
-INSERT INTO Ventas VALUE(3, 1, 1, 7);
-INSERT INTO Ventas VALUE(4, 1, 2, 9);
-INSERT INTO Ventas VALUE(5, 1, 3, 10);
-INSERT INTO Ventas VALUE(6, 4, 3, 3);
-INSERT INTO Ventas VALUE(7, 1, 4, 2);
-INSERT INTO Ventas VALUE(8, 1, 5, 10);
-INSERT INTO Ventas VALUE(9, 1, 6, 1);
 
 -- Mostrando tablas 
 SHOW TABLES; 

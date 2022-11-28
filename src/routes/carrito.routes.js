@@ -9,7 +9,7 @@ const ruta = Router();
 ruta.get('/carrito', getCarrito);
 
 //Ruta que producto y precio del carrito x id
-ruta.get('/carrito/prod-precio/:id', getProdYPrecioCarrito);
+ruta.get('/carrito/productos-precio/:id', getProdYPrecioCarrito);
 
 //Ruta que trae info del carrito x id
 ruta.get('/carrito/:id', getInfoCarrito);

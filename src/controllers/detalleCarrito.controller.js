@@ -8,7 +8,7 @@ export const getProductosCarrito = async (req, res) => {
 }
 
 //Lista info del carrito x id del vendedor
-export const getInfoCarrito = async (req, res) => {
+export const getDetalleCarrito = async (req, res) => {
     const id_vendedor = req.params.id;
 
     //Query que lista info del vendedor
@@ -18,7 +18,7 @@ export const getInfoCarrito = async (req, res) => {
     //Si carrito es null entrega mensaje 404
     if(carrito.length <= 0 ) {
         return res.status(404).json({
-            mensaje: 'El producto no existe...'
+            mensaje: 'El carrit no existe...'
         })
     }
 
