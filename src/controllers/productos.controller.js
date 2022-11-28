@@ -3,7 +3,11 @@ import { conn } from '../db.js'
 // ---   GET   ---
 //Lista todos los productos de la BD
 export const getProductos = async (req, res) => {
+
+    //Query que lista todos los productos
     const [productos] = await conn.query('SELECT * FROM productos;');
+
+    //Entrega todos los productos en JSON
     res.json( productos );
 }
 
@@ -20,9 +24,6 @@ export const getProducto = async (req, res) => {
         })
     }
 
-    //Agrega el id en el carrito
-    // await conn.query('INSERT INTO carrito (id_producto) VALUES (?)', [id_producto]);
-
     //Si el producto existe en BD lo entrega. 
     res.json( producto );
 
@@ -33,15 +34,18 @@ export const getProducto = async (req, res) => {
 export const agregaProducto = async (req, res) => {
     const { nombre, precio, proveedor, categoria } = req.body;
 
+    //Query que inserta en la BD
     const [producto] = await conn.query('INSERT INTO productos (nombre, precio, id_proveedor, id_categoria) VALUES (?, ?, ?, ?);',
     [ nombre, precio, proveedor, categoria ]);
     
+    //Si no fue agregado entrega mensaje 404
     if( producto.affectedRows <= 0) {
         return res.status(404).json({
             mensaje: "No se pudo ingresar el producto."
         })
     }
-    
+
+    //Si se agregó, entrega los datos agregados en JSON. 
     res.send({
         id: producto.insertId,
         nombre,
@@ -90,7 +94,6 @@ export const deleteProducto = async (req, res) => {
             mensaje: 'El producto no existe...'
         })
     }
-    // console.log(resultado); 
 
     //Si el producto existe, se elimina y entrega estado de existe sin devolver nada. 
     res.sendStatus(204); 
